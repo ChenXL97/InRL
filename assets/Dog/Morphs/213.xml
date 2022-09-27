@@ -1,0 +1,191 @@
+<mujoco model="dog">
+
+    <default>
+        <joint armature="0.02" stiffness="1" damping="0.2" limited="true"/>
+        <geom condim="3" friction="1 0.05 0.05" margin="0.01"/>
+        <motor ctrllimited="true" ctrlrange="-1.0 1.0" forcelimited="true" gear="50"/>
+    </default>
+
+    <compiler inertiafromgeom="true" angle="radian"/>
+
+    <option timestep="0.016" iterations="50" tolerance="1e-10" solver="Newton" jacobian="dense" cone="pyramidal"/>
+
+    <size nconmax="20000" njmax="60000" nstack="5000000"/>
+    <visual>
+        <map force="0.1" zfar="30"/>
+        <rgba haze="0.15 0.25 0.35 1"/>
+        <quality shadowsize="2048"/>
+        <global offwidth="800" offheight="800"/>
+    </visual>
+
+    <asset>
+        <texture type="skybox" builtin="gradient" rgb1="0.3 0.5 0.7" rgb2="0 0 0" width="512" height="512"/>
+        <texture name="texplane" type="2d" builtin="checker" rgb1=".2 .3 .4" rgb2=".1 0.15 0.2" width="512" height="512"
+                 mark="cross" markrgb=".8 .8 .8"/>
+        <texture name="texgeom" type="cube" builtin="flat" mark="cross" width="127" height="1278" rgb1="0.8 0.6 0.4"
+                 rgb2="0.8 0.6 0.4" markrgb="1 1 1" random="0.01"/>
+
+        <material name="matplane" reflectance="0.3" texture="texplane" texrepeat="1 1" texuniform="true"/>
+        <material name="matgeom" texture="texgeom" texuniform="true" rgba="0.8 0.6 .4 1"/>
+    </asset>
+
+    <worldbody>
+        <geom name="floor" pos="0 0 0" size="0 0 .25" type="plane" material="matplane" condim="3"/>
+
+        <light directional="false" diffuse=".2 .2 .2" specular="0 0 0" pos="0 0 5" dir="0 0 -1" castshadow="false"/>
+        <light mode="targetbodycom" target="torso" directional="false" diffuse=".8 .8 .8" specular="0.3 0.3 0.3"
+               pos="0 0 4.0" dir="0 0 -1"/>
+
+        <body name="root" pos="0 0 50">
+            <freejoint name="root_1"/>
+            <geom type="box" pos="0 0 -0.02" size="0.0774  0.0358  0.063" density="2030"/>
+
+            <body name="spine1" pos="0.054 0 0">
+                <joint name="spine1_y" axis="0 1 0" range="0 0.7" limited="true"/>
+                <geom type="box" pos="0.02375 0 -0.03" size="0.04375  0.0375  0.05985" density="2030"/>
+
+                <body name="spine2" pos="0.0612 0 0">
+                    <joint name="spine2_y" axis="0 1 0" range="-0.15 0.15" limited="true"/>
+                    <geom type="box" pos="0.03555  0  -0.04" size="0.04055  0.039  0.06615" density="2030"/>
+
+                    <body name="spine3" pos="0.0730 0 0">
+                        <joint name="spine3_y" axis="0 1 0" range="-0.15 0.15" limited="true"/>
+                        <geom type="box" pos="0.03555  0  -0.057" size="0.04555  0.0445  0.081" density="2030"/>
+
+                        <body name="spine4" pos="0.0780 0 0">
+                            <joint name="spine4_y" axis="0 1 0" range="-0.15 0.15" limited="true"/>
+                            <geom type="box" pos="0.05265  0  -0.07" size="0.05265  0.045  0.09135" density="2030"/>
+
+                            <body name="torso" pos="0.1082 0 0">
+                                <joint name="torso_y" axis="0 1 0" range="-0.15 0.15" limited="true"/>
+                                <geom type="box" pos="0.11925  0  -0.085" size="0.11925  0.085  0.11745"
+                                      density="2030"/>
+
+                                <body name="neck1" pos="0.2160  0   0.0180">
+                                    <joint name="neck1_y" axis="0 1 0" range="-1.2  -1" limited="true"/>
+                                    <geom type="box" pos="0.0423  0  0" size="0.0423  0.03  0.036" density="2325"/>
+
+                                    <body name="neck2" pos="0.0853  0  0">
+                                        <joint name="neck2_y" axis="0 1 0" range="0.1  0" limited="true"/>
+                                        <geom type="box" pos="0.0423  0  0" size="0.0423  0.03  0.036" density="2325"/>
+
+                                        <body name="head" pos="0.0853  0  0">
+                                            <joint name="head_y" axis="0 1 0" range="-0.3  -0.2" limited="true"/>
+                                            <geom type="box" pos="0.0531  0  -0.055" size="0.0531  0.06  0.1044"
+                                                  density="4030"/>
+
+                                        </body>
+                                    </body>
+                                </body>
+
+                                <body name="front_shoulder" pos="0.156  0   -0.0480">
+                                    <joint name="front_shoulder_y" axis="0 1 0" range="-1 1.5" limited="true"/>
+                                    <geom type="box" pos="0 0.13 -0.0964" size="0.0426  0.0364  0.1231" density="1158"/>
+                                    <geom type="box" pos="0 -0.13 -0.0964" size="0.0426  0.0364  0.1231"
+                                          density="1158"/>
+
+                                    <body name="front_elbow" pos="0  0  -0.1929">
+                                        <joint name="front_elbow_y" axis="0 1 0" range="-2 0" limited="true"/>
+                                        <geom type="box" pos="0 0.13 -0.1446" size="0.0192  0.0196  0.1446"
+                                              density="1081"/>
+                                        <geom type="box" pos="0 -0.13 -0.1446" size="0.0192  0.0196  0.1446"
+                                              density="1081"/>
+
+                                        <body name="front_wrist" pos="0  0  -0.2891">
+                                            <joint name="front_wrist_y" axis="0 1 0" range="-0.2 0" limited="true"/>
+                                            <geom type="box" pos="0 0.13 -0.0494" size="0.0246  0.0273  0.0625"
+                                                  density="1664"/>
+                                            <geom type="box" pos="0 -0.13 -0.0494" size="0.0246  0.0273  0.0625"
+                                                  density="1664"/>
+
+                                            <body name="front_finger_end" pos="0  0  -0.0987">
+                                                <joint name="front_finger_y" axis="0 1 0" range="-0.4 1"
+                                                       limited="true"/>
+                                                <geom type="box" pos="0.0283  0.13  -0.0076"
+                                                      size="0.0519  0.0283  0.0226" density="1515"/>
+                                                <geom type="box" pos="0.0283  -0.13  -0.0076"
+                                                      size="0.0519  0.0283  0.0226" density="1515"/>
+
+                                            </body>
+
+                                        </body>
+                                    </body>
+                                </body>
+
+                            </body>
+                        </body>
+                    </body>
+                </body>
+            </body>
+
+            <body name="back_hip" pos="-0.03 0 -0.018">
+                <joint name="back_hip_y" axis="0 1 0" range="-1.5 0.3" limited="true"/>
+                <geom type="box" pos="0 0.07 -0.1584" size="0.0400  0.0314  0.1812" density="1154"/>
+                <geom type="box" pos="0 -0.07 -0.1584" size="0.0400  0.0314  0.1812" density="1154"/>
+
+                <body name="back_knee" pos="0  0  -0.3168">
+                    <joint name="back_knee_y" axis="0 1 0" range="0 2.8" limited="true"/>
+                    <geom type="box" pos="0 0.07 -0.1275" size="0.0340  0.0335  0.1430" density="1227"/>
+                    <geom type="box" pos="0 -0.07 -0.1275" size="0.0340  0.0335  0.1430" density="1227"/>
+
+                    <body name="back_ankle" pos="0  0  -0.2550">
+                        <joint name="back_ankle_y" axis="0 1 0" range="-2.2 0" limited="true"/>
+                        <geom type="box" pos="0 0.07 -0.0924" size="0.0213  0.0213  0.1037" density="1284"/>
+                        <geom type="box" pos="0 -0.07 -0.0924" size="0.0213  0.0213  0.1037" density="1284"/>
+
+                        <body name="back_toe_end" pos="0  0  -0.1848">
+                            <joint name="back_toe_y" axis="0 1 0" range="-0.4 1" limited="true"/>
+                            <geom type="box" pos="0.0362  0.07  -0.0053" size="0.0663  0.0362  0.0203" density="1515"/>
+                            <geom type="box" pos="0.0362  -0.07  -0.0053" size="0.0663  0.0362  0.0203" density="1515"/>
+
+                        </body>
+                    </body>
+                </body>
+            </body>
+
+            <body name="tail1" pos="-0.074 0 -0.006">
+                <joint name="tail1_y" axis="0 1 0" range="-0.2 0.2" limited="true"/>
+                <geom type="box" pos="-0.0536  0  0" size="0.045  0.025  0.0175" density="1587"/>
+
+                <body name="tail2" pos="-0.09 0 0">
+                    <joint name="tail2_y" axis="0 1 0" range="-0.2 0.2" limited="true"/>
+                    <geom type="box" pos="-0.0536  0  0" size="0.045  0.025  0.0175" density="1587"/>
+
+                    <body name="tail3" pos="-0.09 0 0">
+                        <joint name="tail3_y" axis="0 1 0" range="-0.2 0.2" limited="true"/>
+                        <geom type="box" pos="-0.0536  0  0" size="0.045  0.025  0.0175" density="1587"/>
+
+                        <body name="tail4" pos="-0.09 0 0">
+                            <joint name="tail4_y" axis="0 1 0" range="-0.2 0.2" limited="true"/>
+                            <geom type="box" pos="-0.0536  0  0" size="0.045  0.025  0.0175" density="1587"/>
+
+                        </body>
+                    </body>
+                </body>
+            </body>
+        </body>
+    </worldbody>
+
+    <actuator>
+        <motor joint="spine1_y" forcerange="-150 150     "/>
+        <motor joint="spine2_y" forcerange="-150 150     "/>
+        <motor joint="spine3_y" forcerange="-150 150     "/>
+        <motor joint="spine4_y" forcerange="-150 150     "/>
+        <motor joint="torso_y" forcerange="-150 150     "/>
+        <motor joint="neck1_y" forcerange="-100 100       "/>
+        <motor joint="neck2_y" forcerange="-100 100       "/>
+        <motor joint="head_y" forcerange="-150 150       "/>
+        <motor joint="front_shoulder_y" forcerange="-199.08 143.62"/>
+        <motor joint="front_elbow_y" forcerange="-100.52 142.09"/>
+        <motor joint="front_wrist_y" forcerange="-89.76 128.57"/>
+        <motor joint="front_finger_y" forcerange="-65.67 45.43"/>
+        <motor joint="back_hip_y" forcerange="-253.78 364.90"/>
+        <motor joint="back_knee_y" forcerange="-303.10 384.42"/>
+        <motor joint="back_angle_y" forcerange="-149.37 91.27"/>
+        <motor joint="back_toe_y" forcerange="-121.95 87.42"/>
+        <motor joint="tail1_y" forcerange="-50 50     "/>
+        <motor joint="tail2_y" forcerange="-50 50     "/>
+        <motor joint="tail3_y" forcerange="-50 50     "/>
+        <motor joint="tail4_y" forcerange="-50 50     "/>
+    </actuator>
+</mujoco>

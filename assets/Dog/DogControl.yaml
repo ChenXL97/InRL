@@ -1,0 +1,52 @@
+num_state: 4
+
+#                spine * 4       torso, neck *2+head              shoulder, elbow,wrist,finger          hip       knee,ankle,toe              tail*4
+kp:           [200,200,200,200,  200,   50,50,50,                 160,      80,80,80,                   130,      50,50,50,                  4,4,4,4]
+kd:           [20 ,20 ,20 ,20 ,  20 ,   5 ,5 ,5,                  16 ,      8 ,8 ,8,                    13 ,      5 ,5 ,5 ,                  0.4,0.4,0.4,0.4]
+default_target_theta: [0,0,0,0,  0,     -0.68507,-0.2,-0.20456,   0.52240, -0.87117,-0.10488,0.88365,   -0.61719, 1.31193,-1.32022,0.92549,  -0.4,-0.2,-0.2,-0.2]
+
+
+kp_scale: 1
+kd_scale: 1
+world_state_dofs:
+  shoulder_y: ['spine1_y','spine2_y','spine3_y','spine4_y','torso_y']
+
+leg_tags: ['front','back']
+
+trans_time: 0.15000
+
+leg_target_forces: [ [-449.223161, 0, -206.901574] , [-408.334188,0,-828.983406]]
+
+
+back_stance:
+  spine_curve:  0.112436
+  shoulder:     -0.8502142
+  elbow:        -1.71199
+  hip:          0.192121
+  knee:         1.933893
+  ankle:        -1.152232
+
+extend:
+  spine_curve:  -0.123595
+  shoulder:     0.430824
+  elbow:        -0.974654
+  hip:          -1.280918
+  knee:         2.687531
+  ankle:        -1.9193892
+
+
+front_stance:
+  spine_curve:  -0.093480
+  shoulder:     1.2814667
+  elbow:        -0.124715
+  hip:          -1.182714
+  knee:         2.7679779
+  ankle:        -2.115872
+
+gather:
+  spine_curve:  0.110882
+  shoulder:     1.552001
+  elbow:        -0.557638
+  hip:          -0.274403
+  knee:         2.684980
+  ankle:        -1.660373

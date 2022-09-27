@@ -1,0 +1,28 @@
+BackStance:
+  Ankle: 1.091807
+  Elbow: -6.990222
+  Hip: 2.017242
+  Knee: -2.516441
+  Shoulder: 7.533227
+  SpineCurve: -0.553157
+Extend:
+  Ankle: -2.116252
+  Elbow: -0.445347
+  Hip: -1.156652
+  Knee: 3.212424
+  Shoulder: -0.605086
+  SpineCurve: -0.039854
+FrontStance:
+  Ankle: -1.866132
+  Elbow: -1.276679
+  Hip: -0.499095
+  Knee: 1.583339
+  Shoulder: 1.473395
+  SpineCurve: 0.070533
+Gather:
+  Ankle: -1.682548
+  Elbow: -2.549229
+  Hip: -0.633075
+  Knee: 1.417522
+  Shoulder: 1.57323
+  SpineCurve: 0.102508

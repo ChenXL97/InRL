@@ -1,0 +1,53 @@
+body_space:
+  joint_force_lower: # they are actually negative
+    hip_y:         [300,  500]
+    knee_y:        [300,  500]
+    angle_y:       [300,  500]
+    toe_y:         [150 , 250]
+
+  joint_force_upper:
+    hip_y:         [300,  500]
+    knee_y:        [300,  500]
+    angle_y:       [300,  500]
+    toe_y:         [150 , 250]
+
+  leg_length:
+    hip:           [0.04, 0.12]
+    knee:          [0.07852, 0.23557]
+    angle:         [0.0757, 0.2272]
+    toe:           [0.03, 0.09]
+
+
+instinct_space:
+  contact:
+    hip:   [0.2,0.6]
+    knee:  [-0.3,0.3]
+    ankle: [-1.57,-1]
+    toe:   [0,0.3]
+
+  swing:
+    hip:   [-1,-0.5]
+    knee:  [1.5,2]
+    ankle: [-2.5,-1.5]
+    toe:   [-0.8,-0.3]
+
+
+  leg_force:
+    leg_x:          [-600, -200]
+    leg_y:          [-1000, -300]
+
+  others:
+    trans_time:     [0.07, 0.12]
+
+constraint:
+  width:
+    hip_y:         [0.0469, 0.0325]
+    knee_y:        [0.0325,  0.03]
+    angle_y:       [0.025,   0.03]
+    toe_y:         [0.025,   0.03]
+
+  geom_pos_offset:
+    hip_y:         0.01
+    knee_y:        0.052
+    angle_y:       0.04
+    toe_y:         0

@@ -1,0 +1,66 @@
+num_state: 8
+
+# spine* 4 + head                               tail * 5                    left leg              right leg
+kp: [200, 200, 100, 100, 100,                       50, 50, 50,50,50,           300, 300, 250, 100,   300, 300, 250, 100]
+kd: [20, 20, 10, 10, 10,                            5, 5, 5, 5,5,               30,  30, 25, 10,      30, 30, 25, 10]
+default_target_theta: [-0.1,-0.1,-0.1,-0.1,-0.8,    -0.1,-0.1,-0.1,-0.1,-0.1,   0,0,0, 0,           0,0,0, 0]
+
+
+kp_scale: 1
+kd_scale: 1
+world_state_dofs:
+  right_hip_y:  ['root_y']
+  left_hip_y:   ['root_y']
+
+leg_tags: ['left','right']
+
+trans_time: 0.0825
+
+leg_target_forces: [ [-400, 0, -600] , [-400, 0, -600]]
+
+
+
+contact:
+  swing_hip:    -0.3782
+  swing_knee:    2.8000
+  swing_ankle:  -2.4395
+  swing_toe:     0.6590
+  stance_hip:    0.2628
+  stance_knee:   0.2944
+  stance_ankle:  -1.2641
+  stance_toe:    0.6662
+
+
+up:
+  swing_hip:    -1.3397
+  swing_knee:   2.5056
+  swing_ankle:   -1.9404
+  swing_toe:    0.0559
+  stance_hip:    0.8397
+  stance_knee:   0
+  stance_ankle:   -0.6462
+  stance_toe:   -0.3318
+
+
+swing:
+  swing_hip:    -1.0705
+  swing_knee:    1.6872
+  swing_ankle:  -1.5700
+  swing_toe:     0.1062
+  stance_hip:     0.3269
+  stance_knee:   0.7252
+  stance_ankle:  -0.1692
+  stance_toe:     0.1062
+
+
+
+down:
+  swing_hip:      -0.6987
+  swing_knee:     1.0841
+  swing_ankle:   -1.1191
+  swing_toe:      0.4508
+  stance_hip:     0.4551
+  stance_knee:    1.5867
+  stance_ankle:   -0.9581
+  stance_toe:     0.1205
+

@@ -1,0 +1,72 @@
+gather:
+  p: [-0.3,0,-0.3]
+  r: -0.8
+  #    spine * 4
+  dof: [0,0.110882,0.110882,0.110882,
+    # torso, neck *2+head
+        0.065,-1,0.1,-0.2,
+    #shoulder, elbow,wrist,finger
+        1.4167, -0.3128,0,0.1708,
+    #hip       knee,ankle,toe
+        -0.274403, 2.684980,-1.32022,-0.2744,
+    # tail*4
+        0.1,0.1,0.1,0.1]
+
+
+back_stance:
+  p: [-0.3,0,-0.1]
+  r: 0.23
+  #    spine * 4
+  dof: [0,-0.15,-0.15,-0.15,
+    # torso, neck *2+head
+        0.0615,-1.2,0,-0.3,
+    #shoulder, elbow,wrist,finger
+        0.6859, -1.7282,-0.2,0.3503,
+    #hip       knee,ankle,toe
+        -0.12, 1.9169,-1.2015,0.3574,
+    # tail*4
+        -0.2,-0.2,-0.2,-0.2]
+
+extend:
+  p: [-0.3,0,0]
+  r: 0.6
+  #    spine * 4
+  dof: [ 0, -0.1015, -0.1, -0.0892,
+    # torso, neck *2+head
+         -0.15,-1.2,0,-0.3,
+    #shoulder, elbow,wrist,finger
+         -0.0321, -1.0308,-0.0846,1,
+    #hip       knee,ankle,toe
+         -1.3385, 2.6636, -1.8785,-0.0015,
+    # tail*4
+         -0.2,-0.2,-0.2,-0.2]
+
+front_stance:
+  p: [-0.3,0,-0.2]
+  r: -0.7
+  #    spine * 4
+  dof: [ 0.6731,-0.04,-0.0292,-0.0385,
+    # torso, neck *2+head
+         -0.1092,-1,0.1,-0.2,
+    #shoulder, elbow,wrist,finger
+         1.4295,-0.2308,-0.0497,-0.0159,
+    #hip       knee,ankle,toe
+         -0.72,2.6062,-1.5513,0.3813,
+    # tail*4
+         0.0328,0.0267,0.0246,0.0308]
+
+
+stand:
+  p: [0,0,-0.2]
+  r: 0
+  #    spine * 4
+  dof: [ 0,0,0,0,
+    # torso, neck *2+head
+         0,0,0,0,
+    #shoulder, elbow,wrist,finger
+         0,0,0,0,
+    #hip       knee,ankle,toe
+         0,0,0,0,
+    # tail*4
+         0,0,0,0]
+

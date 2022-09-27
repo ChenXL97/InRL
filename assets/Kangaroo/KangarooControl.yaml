@@ -1,0 +1,33 @@
+num_state: 2
+
+
+# spine * 4,  head                        tail*4                hip, knee, ankle, toe
+kp: [200, 200, 100, 100,100,                  50, 50, 50, 50,       300, 300, 250, 100]
+kd: [20, 20, 10, 10, 10,                      5, 5, 5, 30,          30, 25, 10, 30]
+default_target_theta: [0.2,0.2,0.2,0.2,0.2,   -0.4,0.1,0.1,0.1,     0,0,0,0]
+
+
+kp_scale: 1
+kd_scale: 1
+world_state_dofs:
+  hip_y:  ['root_y']
+
+leg_tags: ['leg']
+
+trans_time: 0.125
+
+leg_target_forces: [[-408.334188, 0, -709.83406]]
+
+
+contact:
+  hip:    0.4
+  knee:   0
+  ankle:  -1.2778
+  toe:    0.0913
+
+
+swing:
+  hip:    -0.7277
+  knee:   1.7179
+  ankle:   -2.0187
+  toe:    -0.5668

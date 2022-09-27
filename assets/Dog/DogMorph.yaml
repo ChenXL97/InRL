@@ -1,0 +1,95 @@
+body_space:
+  joint_force_lower: # they are actually negative
+    front_shoulder_y:   [100, 200]
+    front_elbow_y:      [100, 200]
+    front_wrist_y:      [50,  150]
+    front_finger_y:     [20 , 100]
+    back_hip_y:         [200, 400]
+    back_knee_y:        [200, 400]
+    back_angle_y:       [50,  250]
+    back_toe_y:         [20 , 140]
+
+  joint_force_upper:
+    front_shoulder_y:   [100, 200]
+    front_elbow_y:      [100, 200]
+    front_wrist_y:      [50,  150]
+    front_finger_y:     [20 , 100]
+    back_hip_y:         [200, 400]
+    back_knee_y:        [200, 400]
+    back_angle_y:       [50,  250]
+    back_toe_y:         [20 , 140]
+
+
+  leg_length:
+    front_shoulder:     [0.0704, 0.2113]
+    front_elbow:        [0.0520, 0.1559]
+    front_wrist:        [0.0334, 0.1001]
+    front_finger:       [0.0125, 0.0375]
+    back_hip:           [0.0684, 0.2052]
+    back_knee:          [0.0664, 0.1991]
+    back_angle:         [0.0389, 0.1168]
+    back_toe:           [0.0125, 0.0375]
+
+
+instinct_space:
+  back_stance:
+    spine_curve:      [0, 0.2]
+    shoulder:         [-1.3, -0.3]
+    elbow:            [-2.2, -1.2]
+    hip:              [0, 0.4]
+    knee:             [1.5,2.5]
+    ankle:            [-1.5, -0.5]
+
+  extend:
+    spine_curve:      [-0.2, 0]
+    shoulder:         [0, 1]
+    elbow:            [-1.5, -0.5]
+    hip:              [-1.7,-0.7]
+    knee:             [2.14, 3.14]
+    ankle:            [-2.5,-1.5]
+
+  front_stance:
+    spine_curve:      [-0.2, 0]
+    shoulder:         [0.7, 1.7]
+    elbow:            [-0.3,0]
+    hip:              [-1.7, -0.7 ]
+    knee:             [2.14, 3.14]
+    ankle:            [-2.5, -1.5]
+
+  gather:
+    spine_curve:      [0, 0.2]
+    shoulder:         [1, 2]
+    elbow:            [-1, 0]
+    hip:              [-0.5, 0]
+    knee:             [2.14, 3.14]
+    ankle:            [-2, -1]
+
+  leg_force:
+    front_x:          [-800, -200]
+    front_z:          [-600, 0]
+    back_x:           [-800, -200]
+    back_z:           [-1000, -400]
+
+  other:
+    trans_time:         [1.25, 1.6]
+
+constraint:
+  width:
+    front_shoulder_y:   [0.0351,  0.03]
+    front_elbow_y:      [0.0269,  0.0275 ]
+    front_wrist_y:      [0.0225,  0.025]
+    front_finger_y:     [0.055 ,  0.03]
+    back_hip_y:         [0.03825, 0.03]
+    back_knee_y:        [0.0279,  0.0275]
+    back_angle_y:       [0.025,   0.025]
+    back_toe_y:         [0.055,   0.03]
+
+  geom_pos_offset:
+    front_shoulder_y:   0.02665
+    front_elbow_y:      0
+    front_wrist_y:      0.01315
+    front_finger_y:     0.015
+    back_hip_y:         0.0228
+    back_knee_y:        0.01555
+    back_angle_y:       0.01125
+    back_toe_y:         0.015

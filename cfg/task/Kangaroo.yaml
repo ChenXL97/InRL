@@ -1,0 +1,51 @@
+defaults:
+  - _BaseTask
+  - _self_
+
+# used to create the object
+
+name: Kangaroo
+asset_name: ${.name}
+asset: ${..morph.asset}
+
+
+reward:
+  posture_weight: [0.1,0.2,0.1]
+  posture_range: [0.4,0.6,0.4]
+
+  # cost parameters
+  energyCost: 0.0025
+
+fsm:
+  num_legs: 1
+  instinct_start_idx: 12
+
+# if given, will override the device setting in gym.
+env:
+  numObservations: 58
+  numActions: 13
+  num_morphs: 23
+  sensors_per_env: 1
+
+  init_height_offset: 0.13
+  terminationHeight: 0.3
+
+  #  numEnvs: ${...num_envs}
+  envSpacing: ${resolve_default:[5,5,5],${...env_spacing}}
+  episodeLength: 1000
+  enableDebugVis: False
+
+  clipActions: 1.0
+
+  powerScale: 1.0
+  controlFrequencyInv: 1 # 60 Hz
+
+  plane:
+    staticFriction: 1.0
+    dynamicFriction: 1.0
+    restitution: 0.0
+
+  # set to True if you use camera sensors in the environment
+  enableCameraSensors: False
+
+

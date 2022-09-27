@@ -1,0 +1,86 @@
+body_space:
+  joint_force_lower: # they are actually negative
+    hip_y:         [100,  300]
+    knee_y:        [100,  300]
+    angle_y:       [100,  200]
+    toe_y:         [50 , 150]
+
+  joint_force_upper:
+    hip_y:          [100,  300]
+    knee_y:         [100,  300]
+    angle_y:        [100,  200]
+    toe_y:          [50 , 150]
+
+  leg_length:
+    hip:           [0.0782, 0.2252]
+    knee:          [0.0635, 0.1905]
+    angle:         [0.0507, 0.1522]
+    toe:           [0.0125, 0.0375]
+
+
+instinct_space:
+  contact:
+    swing_hip:    [-0.6 , 0]
+    swing_knee:   [2.14, 3.14]
+    swing_ankle:  [-3, -2]
+    swing_toe:    [0.3, 1]
+    stance_hip:   [0, 0.5]
+    stance_knee:  [0, 0.5]
+    stance_ankle: [-1.6, -0.8]
+    stance_toe:   [0.3, 1]
+
+
+  up:
+    swing_hip:     [-1.8, -1]
+    swing_knee:    [2.14, 3.14]
+    swing_ankle:   [-2.4, -1.4]
+    swing_toe:     [0, 0.3]
+    stance_hip:    [0.4, 1.2]
+    stance_knee:   [-0.4, 0.4]
+    stance_ankle:  [-1.1, -0.1]
+    stance_toe:    [-0.6, 0]
+
+
+  swing:
+    swing_hip:     [-1.5,-0.5]
+    swing_knee:    [1,2]
+    swing_ankle:   [-2,-1]
+    swing_toe:     [0,0.3]
+    stance_hip:    [0,0.6]
+    stance_knee:   [0,1]
+    stance_ankle:  [-0.4,0]
+    stance_toe:    [0,0.3]
+
+
+
+  down:
+    swing_hip:     [-1,0]
+    swing_knee:    [0.5,1.5]
+    swing_ankle:   [-1.5,-0.5]
+    swing_toe:     [0,1]
+    stance_hip:    [0,1]
+    stance_knee:   [1,2]
+    stance_ankle:  [-1.5,-0.5]
+    stance_toe:    [0,0.3]
+
+
+  leg_force:
+    leg_x:          [-500, -300]
+    leg_y:          [-700, -500]
+
+  others:
+    trans_time:     [0.075, 0.95]
+
+
+constraint:
+  width:
+    hip_y:         [0.0469, 0.0325]
+    knee_y:        [0.0325,  0.03]
+    angle_y:       [0.025,   0.0275]
+    toe_y:         [0.06,   0.03]
+
+  geom_pos_offset:
+    hip_y:         0.034
+    knee_y:        0.022
+    angle_y:       0.0077
+    toe_y:         0.03

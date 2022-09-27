@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PublishConfigData" serverName="chenxinlin@172.20.208.155:22 password" exclude=".svn;.cvs;.idea;.DS_Store;.git;.hg;*.hprof;*.pyc;runs;video;images;outputs_server" remoteFilesAllowedToDisappearOnAutoupload="false">
+    <serverData>
+      <paths name="chenxinlin@172.20.208.155:22 password">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/aworkspace/terrain-adaption" local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+    </serverData>
+  </component>
+</project>

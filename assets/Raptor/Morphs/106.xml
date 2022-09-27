@@ -1,0 +1,145 @@
+<mujoco model="dog">
+
+    <default>
+        <joint armature="0.02" stiffness="1" damping="0.2" limited="true"/>
+        <geom condim="3" friction="1 0.05 0.05" margin="0.01"/>
+        <motor ctrllimited="true" ctrlrange="-1.0 1.0" forcelimited="true"/>
+    </default>
+
+    <compiler inertiafromgeom="true" angle="radian"/>
+
+    <option timestep="0.016" iterations="50" tolerance="1e-10" solver="Newton" jacobian="dense" cone="pyramidal"/>
+
+    <size nconmax="20000" njmax="60000" nstack="5000000"/>
+    <visual>
+        <map force="0.1" zfar="30"/>
+        <rgba haze="0.15 0.25 0.35 1"/>
+        <quality shadowsize="2048"/>
+        <global offwidth="800" offheight="800"/>
+    </visual>
+
+    <asset>
+        <texture type="skybox" builtin="gradient" rgb1="0.3 0.5 0.7" rgb2="0 0 0" width="512" height="512"/>
+        <texture name="texplane" type="2d" builtin="checker" rgb1=".2 .3 .4" rgb2=".1 0.15 0.2" width="512" height="512"
+                 mark="cross" markrgb=".8 .8 .8"/>
+        <texture name="texgeom" type="cube" builtin="flat" mark="cross" width="127" height="1278" rgb1="0.8 0.6 0.4"
+                 rgb2="0.8 0.6 0.4" markrgb="1 1 1" random="0.01"/>
+
+        <material name="matplane" reflectance="0.3" texture="texplane" texrepeat="1 1" texuniform="true"/>
+        <material name="matgeom" texture="texgeom" texuniform="true" rgba="0.8 0.6 .4 1"/>
+    </asset>
+
+    <worldbody>
+        <geom name="floor" pos="0 0 0" size="0 0 .25" type="plane" material="matplane" condim="3"/>
+
+        <light directional="false" diffuse=".2 .2 .2" specular="0 0 0" pos="0 0 5" dir="0 0 -1" castshadow="false"/>
+        <light mode="targetbodycom" target="torso" directional="false" diffuse=".8 .8 .8" specular="0.3 0.3 0.3"
+               pos="0 0 4.0" dir="0 0 -1"/>
+
+        <body name="root" pos="0 0 0">
+            <freejoint name="root_y"/>
+            <geom type="box" size="0.1278 0.063 0.1147" density="2030"/>
+            <body name="spine0" pos="0.1058 0 0.0777">
+                <joint name="spine0_y" axis="0 1 0" range="-0.2 -0.1"/>
+                <geom type="box" pos="0.0868 0 -0.05065" size="0.0868 0.05 0.085" density="1038"/>
+                <body name="spine1" pos="0.1736 0 0">
+                    <joint name="spine1_y" axis="0 1 0" range="-0.2 -0.1"/>
+                    <geom type="box" pos="0.042 0 -0.03" size="0.0415 0.045 0.06285" density="1038"/>
+                    <body name="spine2" pos="0.083 0 0">
+                        <joint name="spine2_y" axis="0 1 0" range="-0.2 -0.1"/>
+                        <geom type="box" pos="0.0319 0 -0.017" size="0.0394 0.04 0.0417" density="1038"/>
+                        <body name="spine3" pos="0.0788 0 0">
+                            <joint name="spine3_y" axis="0 1 0" range="-0.2  -0.1"/>
+                            <geom type="box" pos="0.0319 0 -0.017" size="0.0394 0.04 0.0417" density="1538"/>
+                            <body name="head" pos="0.0688 0 0">
+                                <joint name="head_y" axis="0 1 0" range="-0.8  0"/>
+                                <geom type="box" pos="0.041 0 -0.063" size="0.05 0.0475 0.1043" density="2508"/>
+                            </body>
+                        </body>
+                    </body>
+                </body>
+            </body>
+            <body name="tail0" pos="-0.1198 0 0.0777">
+                <joint name="tail0_y" axis="0 1 0" range="-0.1 0"/>
+                <geom type="box" pos="-0.048 0 -0.04125" size="0.0795 0.05 0.07765" density="809"/>
+                <body name="tail1" pos="-0.1252 0 0">
+                    <joint name="tail1_y" axis="0 1 0" range="-0.1 0"/>
+                    <geom type="box" pos="-0.0571 0 -0.0168" size="0.0846 0.045 0.0527" density="841"/>
+                    <body name="tail2" pos="-0.1252 0 0">
+                        <joint name="tail2_y" axis="0 1 0" range="-0.1 0"/>
+                        <geom type="box" pos="-0.0571 0 -0.007" size="0.0846 0.04 0.04045" density="456"/>
+                        <body name="tail3" pos="-0.1252 0 0">
+                            <joint name="tail3_y" axis="0 1 0" range="-0.1 0"/>
+                            <geom type="box" pos="-0.0571 0 0.002" size="0.0846 0.035 0.0282" density="449"/>
+                            <body name="tail4" pos="-0.1252 0 0">
+                                <joint name="tail4_y" axis="0 1 0" range="-0.1 0"/>
+                                <geom type="box" pos="-0.0571 0 0.005" size="0.0846 0.03 0.02" density="738"/>
+                            </body>
+                        </body>
+                    </body>
+                </body>
+            </body>
+
+
+            <body name="left_hip" pos="0 0.08 0">
+                <joint name="left_hip_y" axis="0 1 0" range="-1.5 1"/>
+                <geom type="box" pos="0 0 -0.1539" size="0.0399  0.0276  0.1879" density="1048"/>
+
+                <body name="left_knee" pos="0  0  -0.3077">
+                    <joint name="left_knee_y" axis="0 1 0" range="0 2.8"/>
+                    <geom type="box" pos="0 0 -0.0909" size="0.0284  0.0262  0.1129" density="1513"/>
+
+                    <body name="left_ankle" pos="0  0  -0.1818">
+                        <joint name="left_ankle_y" axis="0 1 0" range="-3.14 0"/>
+                        <geom type="box" pos="0 0 -0.1241" size="0.0322  0.0354  0.1318" density="1791"/>
+
+                        <body name="left_toe_end" pos="0  0  -0.2482">
+                            <joint name="left_toe_end_y" axis="0 1 0" range="-0.4 1"/>
+                            <geom type="box" pos="0.0159  0  0.0052" size="0.0317  0.0159  0.0248" density="1388"/>
+                        </body>
+                    </body>
+                </body>
+            </body>
+
+            <body name="right_hip" pos="0 -0.08 0">
+                <joint name="right_hip_y" axis="0 1 0" range="-1.5 1"/>
+                <geom type="box" pos="0 0 -0.1539" size="0.0399  0.0276  0.1879" density="1048"/>
+                <body name="right_knee" pos="0  0  -0.3077">
+                    <joint name="right_knee_y" axis="0 1 0" range="0 2.8"/>
+                    <geom type="box" pos="0 0 -0.0909" size="0.0284  0.0262  0.1129" density="1513"/>
+                    <body name="right_ankle" pos="0  0  -0.1818">
+                        <joint name="right_ankle_y" axis="0 1 0" range="-3.14 0"/>
+                        <geom type="box" pos="0 0 -0.1241" size="0.0322  0.0354  0.1318" density="1791"/>
+                        <body name="right_toe_end" pos="0  0  -0.2482">
+                            <joint name="right_toe_end_y" axis="0 1 0" range="-0.4 1"/>
+                            <geom type="box" pos="0.0159  0  0.0052" size="0.0317  0.0159  0.0248" density="1388"/>
+                        </body>
+                    </body>
+                </body>
+            </body>
+        </body>
+    </worldbody>
+
+
+    <actuator>
+        <motor joint="spine0_y" forcerange="-150 150    "/>
+        <motor joint="spine1_y" forcerange="-150 150    "/>
+        <motor joint="spine2_y" forcerange="-150 150    "/>
+        <motor joint="spine3_y" forcerange="-150 150    "/>
+        <motor joint="head_y" forcerange="-150 150     "/>
+        <motor joint="tail0_y" forcerange="-50 50    "/>
+        <motor joint="tail1_y" forcerange="-50 50    "/>
+        <motor joint="tail2_y" forcerange="-50 50    "/>
+        <motor joint="tail3_y" forcerange="-50 50    "/>
+        <motor joint="tail4_y" forcerange="-50 50    "/>
+        <motor joint="left_hip_y" forcerange="-115.46 224.43"/>
+        <motor joint="left_knee_y" forcerange="-212.05 137.34"/>
+        <motor joint="left_ankle_y" forcerange="-199.47 158.12"/>
+        <motor joint="left_toe_end_y" forcerange="-51.02 54.77"/>
+        <motor joint="right_hip_y" forcerange="-115.46 224.43"/>
+        <motor joint="right_knee_y" forcerange="-212.05 137.34"/>
+        <motor joint="right_ankle_y" forcerange="-199.47 158.12"/>
+        <motor joint="right_toe_end_y" forcerange="-51.02 54.77"/>
+    </actuator>
+
+</mujoco>
