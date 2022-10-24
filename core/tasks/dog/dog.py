@@ -11,15 +11,6 @@ class Dog(Locomotion):
 
     def set_init_pos(self):
         pass
-        # set dof default pos
-        # if self.fsm_enable:
-        #     self.initial_dof_pos[:,:] = self.fsm_controller.fsm_dof_target_tensor[:,-1,:]
-
-        # self.initial_root_states[:self.num_envs, 7:13] = 0  # set lin_vel and ang_vel to 0
-        # r = gymapi.Quat.from_axis_angle(gymapi.Vec3(0, 1, 0),-1.57)
-        # self.initial_root_states[:self.num_envs, 3:7] = to_torch((r.x, r.y, r.z, r.w))
-        #
-        # self.reset_idx(torch.arange(0,len(self.envs),device=self.device))
 
     def compute_reward(self):
         self.rew_buf[:], self.reset_buf[:], self.last_pos_buf[:] = compute_reward_and_reset(

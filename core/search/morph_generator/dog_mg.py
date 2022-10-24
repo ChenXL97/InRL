@@ -4,16 +4,18 @@ import tempfile
 import time
 import xml.etree.ElementTree as ET
 
-import torch
 from tqdm import trange
 
-from core.search.morph_generator._parse_morph_tensor import parse_morph_tensor
+from _parse_morph_tensor import parse_morph_tensor
 from utils.utils import save_yaml
+import torch
 
-tmp_asset_path = '/home/cxl/aworkspace/codes/terrain-adaption/assets/Dog/Dog.xml'
-morph_cfg_path = '/home/cxl/aworkspace/codes/terrain-adaption/assets/Dog/DogMorph.yaml'
-output_path = '/home/cxl/aworkspace/codes/terrain-adaption/assets/Dog/Morphs'
-morph_tensor_path = '/home/cxl/aworkspace/codes/terrain-adaption/assets/Dog/MorphTensors'
+root_path = '../../..'
+
+tmp_asset_path = f'{root_path}/assets/Dog/Dog.xml'
+morph_cfg_path = f'{root_path}/assets/Dog/DogMorph.yaml'
+output_path = f'{root_path}/assets/Dog/Morphs'
+morph_tensor_path = f'{root_path}/assets/Dog/MorphTensors'
 
 
 class DogMorphGenerator(object):

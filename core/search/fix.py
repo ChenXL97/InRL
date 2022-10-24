@@ -65,15 +65,8 @@ class Fix(BaseSearch):
                                    'num_heads': self.cfg.num_heads
                                    })
 
-            # self.morph_cfg['asset_file_list'] = [ f'{x}.xml' for x in morph_name_list ]
-            # self.morph_cfg['model_name'] = self.model_name
-            #
-            # self.rlg_config_dict['params']['network']['morph_tensor_path'] = asset_cfg.path if not asset_cfg.file_range else asset_cfg.path + '/MorphTensors'
-            # self.rlg_config_dict['params']['network']['morph_name_list'] = morph_name_list
-
     def run(self):
         if self.cfg.morph.asset.from_file:
-            # morph = torch.zeros((self.num_morphs, self.morph_dim), device=self.device)
 
             if not self.cfg.test:
                 self.prepare_morph_cfg()

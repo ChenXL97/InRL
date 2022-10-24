@@ -7,14 +7,16 @@ import xml.etree.ElementTree as ET
 import torch
 from tqdm import trange
 
-from core.search.morph_generator._parse_morph_tensor import parse_morph_tensor
+from _parse_morph_tensor import parse_morph_tensor
 from utils.utils import save_yaml
 
 model_name = 'Kangaroo'
-tmp_asset_path = f'/home/cxl/aworkspace/codes/terrain-adaption/assets/{model_name}/{model_name}.xml'
-morph_cfg_path = f'/home/cxl/aworkspace/codes/terrain-adaption/assets/{model_name}/{model_name}Morph.yaml'
-output_path = f'/home/cxl/aworkspace/codes/terrain-adaption/assets/{model_name}/Morphs'
-morph_tensor_path = f'/home/cxl/aworkspace/codes/terrain-adaption/assets/{model_name}/MorphTensors'
+
+root_path = '../../..'
+tmp_asset_path = f'{root_path}/assets/{model_name}/{model_name}.xml'
+morph_cfg_path = f'{root_path}/assets/{model_name}/{model_name}Morph.yaml'
+output_path = f'{root_path}/assets/{model_name}/Morphs'
+morph_tensor_path = f'{root_path}/assets/{model_name}/MorphTensors'
 
 
 class KangarooMorphGenerator(object):

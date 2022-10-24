@@ -1,3 +1,5 @@
+from utils.rlgames_morph_utils import RLGPUEnv, RLGPUAlgoObserver, get_rlgames_morph_env_creator
+
 import os
 import xml.etree.ElementTree as ET
 
@@ -10,7 +12,6 @@ from core.trainer.morph_tensor.a2c_morph_tensor import TrainerA2CMorphTensor
 from core.trainer.morph_tensor.player_morph_tensor import PlayerA2CMorphTensor
 from rl_games.common import env_configurations, vecenv
 from utils.reformat import omegaconf_to_dict, print_dict
-from utils.rlgames_morph_utils import RLGPUEnv, RLGPUAlgoObserver, get_rlgames_morph_env_creator
 
 
 class BaseSearch(object):
@@ -128,12 +129,6 @@ class BaseSearch(object):
         runner.load(self.rlg_config_dict)
         runner.set_morph_cfg(self.morph_cfg)
         runner.reset()
-
-        # dump config dict
-        # experiment_dir = os.path.join('visual/outputs', cfg.train.params.config.name)
-        # os.makedirs(experiment_dir, exist_ok=True)
-        # with open(os.path.join(experiment_dir, 'config.yaml'), 'w') as f:
-        #     f.write(OmegaConf.to_yaml(cfg))
 
         result = runner.run({'train': not test,
                              'play': test})
