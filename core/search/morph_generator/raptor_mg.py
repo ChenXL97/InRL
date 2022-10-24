@@ -7,7 +7,12 @@ import xml.etree.ElementTree as ET
 import torch
 from tqdm import trange
 
-from _parse_morph_tensor import parse_morph_tensor
+
+if __name__ == '__main__':
+    from _parse_morph_tensor import parse_morph_tensor
+else:
+    from ._parse_morph_tensor import parse_morph_tensor
+
 from utils.utils import save_yaml
 
 model_name = 'Raptor'
