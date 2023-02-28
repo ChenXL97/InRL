@@ -1,0 +1,24 @@
+defaults:
+  - _BaseTrain
+  - _self_
+
+name: MorphTensor
+
+params:
+  algo:
+    name: a2c_morph_tensor
+
+  model:
+    name: continuous_a2c_logstd
+
+  network:
+    name: actor_critic
+    morph_dim: 52
+    num_morphs: ${....num_morphs}
+    device: ${....rl_device}
+
+  config:
+    use_morph_tensor: True
+
+    player:
+      use_morph_tensor: True

@@ -1,0 +1,163 @@
+# used to create the object
+name: BaseTask
+asset_name: Dog
+asset: ${..morph.asset}
+
+
+# if given, will override the device setting in gym.
+env:
+  numObservations: 85
+  numActions: 20
+  num_morphs: 53
+  sensors_per_env: 2
+
+  init_height_offset: 0.06
+  start_pos: [0,0,1]
+  slope_height_offset: 0.1
+  terminationHeight: 0.3
+
+  #  numEnvs: ${...num_envs}
+  test_envs_per_morph: ${...test_envs_per_morph}
+  envSpacing: ${resolve_default:[5,5,5],${...env_spacing}}
+  episodeLength: 1000
+  enableDebugVis: False
+
+  clipActions: 1.0
+
+  powerScale: 1.0
+  controlFrequencyInv: 1 # 60 Hz
+
+  plane:
+    slope: ${resolve_default:0,${....slope}}
+    top: ${resolve_default:0.8,${....top_height}}
+
+    staticFriction: 1.0
+    dynamicFriction: 1.0
+    restitution: 0.0
+
+  # set to True if you use camera sensors in the environment
+  enableCameraSensors: False
+  fix_root: False
+
+reward:
+  # reward parameters
+  headingWeight: 0.5
+  upWeight: 0
+
+  # cost parameters
+  energyCost: ${resolve_default:0.001,${...ec}}
+
+  dofVelocityScale: 0.2
+  dofForceScale: 0.1
+  contactForceScale: 0.1
+  deathCost: -2.0
+
+  dead_check_step: 30
+  dead_length_threshold: 0.2
+  posture_weight: [0.1,0.1,0.1]
+  posture_range: [0.4,1.57,0.4]
+  collision_weight: 0.01
+  collision_range: 10
+
+
+
+fsm:
+  enable: ${resolve_default:True,${...enable_fsm}}
+  action_rate: ${resolve_default:0.5, ${...action_rate}}
+  num_legs: 2
+  dt: ${..sim.dt}
+  contact_threshold: 1
+  device: ${...sim_device}
+  torque_limit_scale: 1
+  fix_root: False
+  designed_fsm: True
+
+  control:
+    root_path: ${....morph.asset.cfg_path}
+    file: ${....morph.asset.control_cfg}
+
+
+view:
+  headless: ${...headless}
+  enable_viewer_sync:  ${...enable_viewer_sync}
+  viewer_following: ${...viewer_following}
+  root_path: ${...root_path}
+
+
+video:
+  enable: ${...make_video}
+  output_path: 'visual/video'
+  file_name:  ${resolve_default:'${...experiment}.mp4',${...video_name}}
+  camera_size: [4096,4096]
+  fps: 50
+  max_frames: ''
+
+  pos: [1.5, -5, 0.6]
+  rotate_axis: [0, 0, 1]
+  rotate_angle: 125
+
+
+terrain: ${..terrain}
+
+sim:
+  dt: 0.0166 # 1/60 s
+  substeps: 2
+  up_axis: "z"
+  physics_engine: ${...physics_engine}
+  use_gpu_pipeline: ${eq:${...pipeline},"gpu"}
+  gravity: [0.0, 0.0, -9.81]
+  physx:
+    num_threads: ${....num_threads}
+    solver_type: ${....solver_type}
+    use_gpu: ${contains:"cuda",${....sim_device}} # set to False to run on CPU
+    num_position_iterations: 4
+    num_velocity_iterations: 0
+    contact_offset: 0.01
+    rest_offset: 0.0
+    bounce_threshold_velocity: 0.2
+    max_depenetration_velocity: 10.0
+    default_buffer_size_multiplier: 5.0
+    max_gpu_contact_pairs: 8388608 # 8*1024*1024
+    num_subscenes: ${....num_subscenes}
+#    contact_collection: 0 # 0: CC_NEVER (don't collect contact info), 1: CC_LAST_SUBSTEP (collect only contacts on last substep), 2: CC_ALL_SUBSTEPS (default - all contacts)
+
+task:
+
+  randomize: False
+  randomization_params:
+    # specify which attributes to randomize for each actor type and property
+    frequency: 600   # Define how many environment steps between generating new randomizations
+    observations:
+      range: [0, .002] # range for the white noise
+      operation: "additive"
+      distribution: "gaussian"
+    actions:
+      range: [0., .02]
+      operation: "additive"
+      distribution: "gaussian"
+    actor_params:
+      ant:
+        color: True
+        rigid_body_properties:
+          mass:
+            range: [0.5, 1.5]
+            operation: "scaling"
+            distribution: "uniform"
+            setup_only: True # Property will only be randomized once before simulation is started. See Domain Randomization Documentation for more info.
+        dof_properties:
+          damping:
+            range: [0.5, 1.5]
+            operation: "scaling"
+            distribution: "uniform"
+          stiffness:
+            range: [0.5, 1.5]
+            operation: "scaling"
+            distribution: "uniform"
+          lower:
+            range: [0, 0.01]
+            operation: "additive"
+            distribution: "gaussian"
+          upper:
+            range: [0, 0.01]
+            operation: "additive"
+            distribution: "gaussian"

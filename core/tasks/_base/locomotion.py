@@ -130,6 +130,8 @@ class Locomotion(VecTask):
         self.sim = super()._create_gym_sim(self.device_id, self.graphics_device_id, self.physics_engine,
                                            self.sim_params)
 
+
+
         # if self.plane_slope == 0:
         # create ground plane
         #     plane_params = gymapi.PlaneParams()

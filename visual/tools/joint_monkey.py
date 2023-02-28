@@ -55,8 +55,10 @@ def run_joint_monkey(asset_root, file_list, moving=True, fix_root=True, gravity=
         sim_params.physx.num_velocity_iterations = 0
         sim_params.physx.num_threads = args.num_threads
         sim_params.physx.use_gpu = args.use_gpu
+        # sim_params.physx.use_gpu = True
 
     sim_params.use_gpu_pipeline = False
+    # sim_params.use_gpu_pipeline = True
     if args.use_gpu_pipeline:
         print("WARNING: Forcing CPU pipeline.")
 
@@ -263,7 +265,7 @@ def run_joint_monkey(asset_root, file_list, moving=True, fix_root=True, gravity=
 
 
 if __name__ == '__main__':
-    model_name = 'Kangaroo'
-    asset_root = f'/home/cxl/aworkspace/codes/terrain-adaption/assets/{model_name}'
+    model_name = 'Dog'
+    asset_root = f'/home/cxl/storage/os_codes/inrl/assets/{model_name}'
     file_list = [f'{model_name}.xml']
     run_joint_monkey(asset_root, file_list, moving=False, fix_root=True, gravity=False)

@@ -1,0 +1,13 @@
+defaults:
+  - _BaseTrain
+  - _self_
+
+
+name: SinglePPO
+
+params:
+  algo:
+    name: a2c_multi_morph
+
+  model:
+    name: continuous_a2c_logstd

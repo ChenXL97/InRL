@@ -1,0 +1,34 @@
+# used to create the object
+name: Base
+
+asset_name: "${..task.name}"
+
+num_morphs: ${..num_morphs}
+train_envs_per_morph: ${..train_envs_per_morph}
+test_envs_per_morph: ${..test_envs_per_morph}
+morph_dim: ${..task.env.num_morphs}
+morph_tensor: ${resolve_default:True,${..morph_tensor}}
+
+device: ${..rl_device}
+max_search_iters: ${resolve_default:30,${..max_search_iters}}
+
+output_path: ${..morph_output_path}
+
+load_checkpoint: False
+
+
+asset:
+  from_file: True
+  from_output: False
+  num_assets: ${..num_morphs}
+  template_path: "${...root_path}/assets/${..asset_name}"
+  template_file: "${..asset_name}.xml"
+  path: "${...root_path}/assets/${..asset_name}"
+  file_range: ${resolve_default:False,${...morph_range}} #if False, use the file list
+  range: ${resolve_default:0,${...morph_asset_range}}
+  file_list:
+    - "${...asset_name}"
+
+  cfg_path: "${...root_path}/assets/${..asset_name}"
+  control_cfg: "${..asset_name}Control.yaml"
+  morph_cfg: "${..asset_name}Morph.yaml"

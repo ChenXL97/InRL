@@ -1,0 +1,50 @@
+defaults:
+  - _BaseTask
+  - _self_
+
+# used to create the object
+
+name: Dog
+asset_name: ${.name}
+asset: ${..morph.asset}
+
+reward:
+  posture_weight: [0.1,0.1,0.1]
+  posture_range: [0.4,1.57,0.4]
+  # cost parameters
+  energyCost: 0.0015
+
+
+fsm:
+  instinct_start_idx: 24
+
+
+# if given, will override the device setting in gym.
+env:
+  numObservations: 85
+  numActions: 20
+  num_morphs: 53
+
+  slope_height_offset: 0.6
+
+  terminationHeight: 0.3
+
+  #  numEnvs: ${...num_envs}
+  envSpacing: ${resolve_default:[5,5,5],${...env_spacing}}
+  episodeLength: 1000
+  enableDebugVis: False
+
+  clipActions: 1.0
+
+  powerScale: 1.0
+  controlFrequencyInv: 1 # 60 Hz
+
+  plane:
+    staticFriction: 1.0
+    dynamicFriction: 1.0
+    restitution: 0.0
+
+  # set to True if you use camera sensors in the environment
+  enableCameraSensors: False
+
+

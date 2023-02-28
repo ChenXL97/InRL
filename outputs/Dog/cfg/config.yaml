@@ -1,0 +1,334 @@
+
+defaults:
+  - override hydra/job_logging: disabled
+  - _self_
+
+hydra:
+  output_subdir: null
+  run:
+    dir: .
+
+task:
+  name: Dog
+  asset_name: ${.name}
+  asset: ${..morph.asset}
+  env:
+    numObservations: 85
+    numActions: 20
+    num_morphs: 53
+    sensors_per_env: 2
+    init_height_offset: 0.06
+    start_pos:
+    - 0
+    - 0
+    - 1
+    slope_height_offset: 0.6
+    terminationHeight: 0.3
+    test_envs_per_morph: ${...test_envs_per_morph}
+    envSpacing: ${resolve_default:[5,5,5],${...env_spacing}}
+    episodeLength: 1000
+    enableDebugVis: false
+    clipActions: 1.0
+    powerScale: 1.0
+    controlFrequencyInv: 1
+    plane:
+      slope: ${resolve_default:0,${....slope}}
+      top: ${resolve_default:0.8,${....top_height}}
+      staticFriction: 1.0
+      dynamicFriction: 1.0
+      restitution: 0.0
+    enableCameraSensors: false
+    fix_root: false
+  reward:
+    headingWeight: 0.5
+    upWeight: 0
+    energyCost: 0.0015
+    dofVelocityScale: 0.2
+    dofForceScale: 0.1
+    contactForceScale: 0.1
+    deathCost: -2.0
+    dead_check_step: 30
+    dead_length_threshold: 0.2
+    posture_weight:
+    - 0.1
+    - 0.1
+    - 0.1
+    posture_range:
+    - 0.4
+    - 1.57
+    - 0.4
+    collision_weight: 0.01
+    collision_range: 10
+  fsm:
+    enable: ${resolve_default:True,${...enable_fsm}}
+    action_rate: ${resolve_default:0.5, ${...action_rate}}
+    num_legs: 2
+    dt: ${..sim.dt}
+    contact_threshold: 1
+    device: ${...sim_device}
+    torque_limit_scale: 1
+    fix_root: false
+    designed_fsm: true
+    control:
+      root_path: ${....morph.asset.cfg_path}
+      file: ${....morph.asset.control_cfg}
+    instinct_start_idx: 24
+  view:
+    headless: ${...headless}
+    enable_viewer_sync: ${...enable_viewer_sync}
+    viewer_following: ${...viewer_following}
+    root_path: ${...root_path}
+  video:
+    enable: ${...make_video}
+    output_path: visual/video
+    file_name: ${resolve_default:'${...experiment}.mp4',${...video_name}}
+    camera_size:
+    - 4096
+    - 4096
+    fps: 50
+    max_frames: ''
+    pos:
+    - 1.5
+    - -5
+    - 0.6
+    rotate_axis:
+    - 0
+    - 0
+    - 1
+    rotate_angle: 125
+  terrain: ${..terrain}
+  sim:
+    dt: 0.0166
+    substeps: 2
+    up_axis: z
+    physics_engine: ${...physics_engine}
+    use_gpu_pipeline: ${eq:${...pipeline},"gpu"}
+    gravity:
+    - 0.0
+    - 0.0
+    - -9.81
+    physx:
+      num_threads: ${....num_threads}
+      solver_type: ${....solver_type}
+      use_gpu: ${contains:"cuda",${....sim_device}}
+      num_position_iterations: 4
+      num_velocity_iterations: 0
+      contact_offset: 0.01
+      rest_offset: 0.0
+      bounce_threshold_velocity: 0.2
+      max_depenetration_velocity: 10.0
+      default_buffer_size_multiplier: 5.0
+      max_gpu_contact_pairs: 8388608
+      num_subscenes: ${....num_subscenes}
+  task:
+    randomize: false
+    randomization_params:
+      frequency: 600
+      observations:
+        range:
+        - 0
+        - 0.002
+        operation: additive
+        distribution: gaussian
+      actions:
+        range:
+        - 0.0
+        - 0.02
+        operation: additive
+        distribution: gaussian
+      actor_params:
+        ant:
+          color: true
+          rigid_body_properties:
+            mass:
+              range:
+              - 0.5
+              - 1.5
+              operation: scaling
+              distribution: uniform
+              setup_only: true
+          dof_properties:
+            damping:
+              range:
+              - 0.5
+              - 1.5
+              operation: scaling
+              distribution: uniform
+            stiffness:
+              range:
+              - 0.5
+              - 1.5
+              operation: scaling
+              distribution: uniform
+            lower:
+              range:
+              - 0
+              - 0.01
+              operation: additive
+              distribution: gaussian
+            upper:
+              range:
+              - 0
+              - 0.01
+              operation: additive
+              distribution: gaussian
+train:
+  params:
+    seed: ${...seed}
+    algo:
+      name: a2c_morph_tensor
+    model:
+      name: continuous_a2c_logstd
+    network:
+      name: actor_critic
+      separate: false
+      space:
+        continuous:
+          mu_activation: None
+          sigma_activation: None
+          mu_init:
+            name: default
+          sigma_init:
+            name: const_initializer
+            val: 0
+          fixed_sigma: true
+      mlp:
+        units: ${resolve_default:[1024, 512, 256, 128],${.....mlp}}
+        activation: elu
+        d2rl: false
+        initializer:
+          name: default
+        regularizer:
+          name: None
+      morph_dim: 52
+      num_morphs: ${....num_morphs}
+      device: ${....rl_device}
+    load_checkpoint: ${if:${...checkpoint},True,False}
+    load_path: ${...checkpoint}
+    config:
+      name: ${resolve_default:Dog,${....experiment}}
+      device: ${....rl_device}
+      full_experiment_name: ${.name}
+      train_dir: ${....output_path}
+      env_name: rlgpu
+      multi_gpu: false
+      ppo: true
+      mixed_precision: true
+      normalize_input: true
+      normalize_value: true
+      value_bootstrap: true
+      reward_shaper:
+        scale_value: 0.01
+      normalize_advantage: true
+      gamma: 0.99
+      tau: 0.95
+      learning_rate: 0.0003
+      lr_schedule: adaptive
+      schedule_type: legacy
+      kl_threshold: 0.008
+      score_to_win: 20000
+      max_epochs: ${resolve_default:500,${....max_iterations}}
+      save_best_after: 100
+      save_frequency: 50
+      grad_norm: 1.0
+      entropy_coef: 0.0
+      truncate_grads: false
+      e_clip: 0.2
+      horizon_length: 16
+      minibatch_rate: ${resolve_default:0.5,${....minibatch_rate}}
+      minibatch_size: ${resolve_default:32768,${....minibatch_size}}
+      mini_epochs: 4
+      critic_coef: 2
+      clip_value: true
+      seq_len: 4
+      bounds_loss_coef: 0.0001
+      print_stats: ${resolve_default:True,${....print_stats}}
+      save_network: ${resolve_default:True,${....save_network}}
+      save_summary: ${resolve_default:False,${....save_summary}}
+      games_to_track: ${resolve_default:128,${....games_to_track}}
+      use_morph_tensor: true
+      player:
+        use_morph_tensor: true
+  name: MorphTensor
+morph:
+  name: PSOSearch
+  asset_name: ${..task.name}
+  num_morphs: ${..num_morphs}
+  train_envs_per_morph: ${..train_envs_per_morph}
+  test_envs_per_morph: ${..test_envs_per_morph}
+  morph_dim: ${..task.env.num_morphs}
+  morph_tensor: ${resolve_default:True,${..morph_tensor}}
+  device: ${..rl_device}
+  max_search_iters: ${resolve_default:30,${..max_search_iters}}
+  output_path: ${..morph_output_path}
+  load_checkpoint: false
+  asset:
+    from_file: false
+    from_output: false
+    num_assets: ${..num_morphs}
+    template_path: ${...root_path}/assets/${..asset_name}
+    template_file: ${..asset_name}.xml
+    path: ${...root_path}/assets/${..asset_name}
+    file_range: ${resolve_default:False,${...morph_range}}
+    range: ${resolve_default:0,${...morph_asset_range}}
+    file_list:
+    - ${...asset_name}
+    cfg_path: ${...root_path}/assets/${..asset_name}
+    control_cfg: ${..asset_name}Control.yaml
+    morph_cfg: ${..asset_name}Morph.yaml
+experiment: ${task.name}
+task_name: ${task.name}
+save_network: true
+save_summary: false
+save_morph: ${if:${.test},False,True}
+horizon_length: 16
+minibatch_rate: 0.5
+minibatch_size: ''
+mlp: ''
+terrain: Flat
+slope: 0
+top_height: 0.7
+enable_fsm: true
+action_rate: 0.5
+ec: 0.001
+train_envs_per_morph: 256
+envs_per_morph: ''
+test_envs_per_morph: 64
+games_to_track: 128
+num_morphs: 32
+num_heads: 4
+morph_range: true
+morph_asset_range: 0
+morph_output_path: ${.output_path}/${.experiment}
+morph_tensor: ${eq:${.train.name},'MorphTensor'}
+env_spacing:
+- 2
+- 2
+- 2
+headless: true
+print_stats: false
+enable_viewer_sync: true
+viewer_following: true
+make_video: false
+video_name: ''
+max_iterations: 1
+max_search_iters: 1
+root_path: /home/cxl/storage/os_codes/inrl
+output_path: ${root_path}/outputs
+test: false
+test_after_train: true
+checkpoint: ''
+checkpoint_file: ''
+seed: 0
+torch_deterministic: false
+debug: false
+physics_engine: physx
+pipeline: ${if:${.debug},'cpu', 'gpu' }
+sim_device: ${if:${.debug},'cpu', 'cuda:0' }
+rl_device: cuda:0
+graphics_device_id: 0
+num_threads: 4
+solver_type: 1
+num_subscenes: 4
+multi_gpu: false
+count_time: false

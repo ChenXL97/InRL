@@ -1,0 +1,8 @@
+defaults:
+  - _BaseMorph
+  - _self_
+
+# default
+name: PSOSearch
+
+max_search_iters: ${resolve_default:30,${..max_search_iters}}
